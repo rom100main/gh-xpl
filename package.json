@@ -1,32 +1,35 @@
 {
-    "name": "@rom100main/brave-cli",
-    "version": "1.0.2",
-    "description": "CLI tool and interactive TUI for searching the web using Brave Search API, includes a skill for AI agents.",
+    "name": "gh-xpl",
+    "version": "1.0.0",
+    "description": "CLI tool for exploring GitHub repositories using the official GitHub API, includes a skill for AI agents.",
     "author": "rom100main",
     "keywords": [
         "cli",
-        "tui",
+        "github",
+        "git",
+        "repository",
+        "explore",
+        "code",
         "search",
-        "brave",
-        "brave-search",
         "skills",
         "agent-skills"
     ],
-    "homepage": "https://github.com/rom100main/brave-cli#readme",
+    "homepage": "https://github.com/rom100main/gh-xpl#readme",
     "bugs": {
-        "url": "https://github.com/rom100main/brave-cli/issues"
+        "url": "https://github.com/rom100main/gh-xpl/issues"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/rom100main/brave-cli.git"
+        "url": "git+https://github.com/rom100main/gh-xpl.git"
     },
     "license": "MIT",
     "access": "public",
     "bin": {
-        "brave": "./dist/index.js"
+        "gh-xpl": "./dist/index.js"
     },
     "preferGlobal": true,
     "dependencies": {
+        "@octokit/rest": "^22.0.1",
         "@rezi-ui/core": "^0.1.0-alpha.60",
         "@rezi-ui/node": "^0.1.0-alpha.60",
         "commander": "^14.0.3",
