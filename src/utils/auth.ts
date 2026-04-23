@@ -21,8 +21,14 @@ function getConfig(): Config {
 }
 
 export function getApiToken(): string | undefined {
+    // Check config file first
     const config = getConfig();
-    return config.apiToken;
+    if (config.apiToken) {
+        return config.apiToken;
+    }
+
+    // Fall back to environment variable
+    return process.env.GITHUB_TOKEN;
 }
 
 export function saveApiToken(apiToken: string): void {
