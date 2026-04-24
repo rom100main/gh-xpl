@@ -4,8 +4,8 @@ import he from "he";
 
 import type { FileContent } from "../../types.js";
 import { CYAN, RED, BLUE } from "../colors.js";
+import { parseAndWrapMarkdown, type MdToken } from "../markdown.js";
 import type { TuiState } from "../state.js";
-import { wrapLines } from "../utils.js";
 
 function getFileIcon(file: FileContent): string {
     if (file.type === "dir") {
@@ -52,19 +52,13 @@ export function repoView(state: TuiState, callbacks: RepoViewCallbacks) {
                 itemHeight: 1,
                 focusConfig: {
                     contentStyle: { underline: false },
-                    style: isFilesFocused ? { bold: true } : {},
                 },
                 renderItem: (file: FileContent, index: number, focused: boolean) => {
                     const icon = getFileIcon(file);
-                    const prefix = focused && isFilesFocused ? "> " : "  ";
+                    const prefix = focused && isFilesFocused ? "█ " : "  ";
                     return ui.text(`${prefix}${icon} ${file.name}`, {
                         key: `file-${index}`,
-                        style:
-                            focused && isFilesFocused
-                                ? { bold: true, fg: file.type === "dir" ? BLUE : undefined }
-                                : file.type === "dir"
-                                  ? { fg: BLUE }
-                                  : {},
+                        style: file.type === "dir" ? { fg: BLUE } : {},
                     });
                 },
                 onSelect: (file: FileContent) => callbacks.openFile(file),
@@ -76,22 +70,24 @@ export function repoView(state: TuiState, callbacks: RepoViewCallbacks) {
     let readmeElements: Parameters<typeof ui.column>[1] = [];
     const hasReadme = isRoot && state.repoReadme !== null;
     if (hasReadme) {
-        const readmeContent = state.repoReadme
-            ? wrapLines(he.decode(state.repoReadme), cols)
-            : ["No README available."];
+        const maxCols = cols - 1;
+        const readmeItems = state.repoReadme
+            ? parseAndWrapMarkdown(he.decode(state.repoReadme), maxCols)
+            : [[{ text: "No README available.", style: {} }]];
         const readmeSection = ui.virtualList({
             id: "readme-content",
-            items: readmeContent,
+            items: readmeItems,
             itemHeight: 1,
             focusConfig: {
                 contentStyle: { underline: false },
-                style: isReadmeFocused ? { bold: true } : {},
             },
-            renderItem: (line: string, index: number, focused: boolean) =>
-                ui.text(line || " ", {
-                    key: `readme-${index}`,
-                    style: focused && isReadmeFocused ? { bold: true } : {},
-                }),
+            renderItem: (tokens: MdToken[], index: number, focused: boolean) => {
+                const cursor = focused && isReadmeFocused ? "█" : " ";
+                return ui.row({ gap: 0, key: `readme-${index}` }, [
+                    ui.text(cursor),
+                    ...tokens.map((t, i) => ui.text(t.text, { key: `t-${i}`, style: t.style })),
+                ]);
+            },
         });
 
         const readmeBox = ui.box({ height: contentHeight, width: cols, border: "none" }, [readmeSection]);
