@@ -29,6 +29,7 @@
     },
     "preferGlobal": true,
     "dependencies": {
+        "@m234/nerd-fonts": "^0.5.1",
         "@octokit/rest": "^22.0.1",
         "@rezi-ui/core": "^0.1.0-alpha.60",
         "@rezi-ui/node": "^0.1.0-alpha.60",
