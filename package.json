@@ -34,11 +34,8 @@
         "@rezi-ui/core": "^0.1.0-alpha.60",
         "@rezi-ui/node": "^0.1.0-alpha.60",
         "commander": "^14.0.3",
-        "defuddle": "^0.15.0",
         "he": "^1.2.0",
-        "linkedom": "^0.18.12",
         "marked": "^18.0.2",
-        "node-html-markdown": "^2.0.0",
         "open": "^11.0.0"
     },
     "type": "module",
