@@ -20,10 +20,10 @@ export function repoView(state: TuiState, callbacks: RepoViewCallbacks) {
     const isFilesFocused = state.focusArea === "files";
     const isReadmeFocused = state.focusArea === "readme";
 
-    // In root: show both file list and README, each takes half
+    // In root: show both file list and README
     // In subfolder: only show file list, takes full height
     const isRoot = state.currentPath === ".";
-    const contentHeight = isRoot ? Math.floor((rows - 8) / 2) : rows - 6;
+    const contentHeight = isRoot ? Math.floor((rows - 6) / 2) : rows - 6;
 
     const header = ui.column({ gap: 0 }, [
         ui.text(`${state.selectedRepo?.owner}/${state.selectedRepo?.repo}`, {
@@ -63,9 +63,8 @@ export function repoView(state: TuiState, callbacks: RepoViewCallbacks) {
                 onSelect: (file: FileContent) => callbacks.openFile(file),
             });
 
-    const fileBox = ui.box({ height: contentHeight, width: cols, border: isFilesFocused ? "single" : undefined }, [
-        fileListContent,
-    ]);
+    const fileList = ui.box({ height: contentHeight, width: cols, border: "none" }, [fileListContent]);
+
     // Only show README in root directory
     let readmeElements: Parameters<typeof ui.column>[1] = [];
     const hasReadme = isRoot && state.repoReadme !== null;
@@ -88,21 +87,12 @@ export function repoView(state: TuiState, callbacks: RepoViewCallbacks) {
                 }),
         });
 
-        const readmeHeader = ui.row({ gap: 1 }, [ui.text("📖 README", { style: { bold: true, fg: GREEN } })]);
+        const readmeBox = ui.box({ height: contentHeight, width: cols, border: "none" }, [readmeSection]);
 
-        const readmeBox = ui.box(
-            { height: contentHeight, width: cols, border: isReadmeFocused ? "single" : undefined },
-            [readmeSection],
-        );
-
-        readmeElements = [ui.divider(), readmeHeader, readmeBox];
+        readmeElements = [ui.divider(), readmeBox];
     }
 
-    const bodyChildren: Parameters<typeof ui.column>[1] = [
-        ui.text("📂 Files", { style: { bold: true } }),
-        fileBox,
-        ...readmeElements,
-    ];
+    const bodyChildren: Parameters<typeof ui.column>[1] = [fileList, ...readmeElements];
 
     const body = ui.column({ gap: 0 }, bodyChildren);
 
