@@ -10,6 +10,7 @@ const { version } = packageJson;
 import { DEFAULT_SEARCH_COUNT, SKILL_NAME } from "./config.js";
 import { getFileContents, getReadme, searchRepositories } from "./github/api.js";
 import { formatFileListMarkdown, formatReadmeMarkdown, formatSearchResultsMarkdown } from "./output/format.js";
+import { runTui } from "./tui/index.js";
 import type { CliOptions } from "./types.js";
 import { API_TOKEN_URL, CONFIG_FILE, saveApiToken, validateApiTokenFormat } from "./utils/auth.js";
 import { parseRepoInput } from "./utils/parser.js";
@@ -49,6 +50,14 @@ export function createCli(): Command {
         .description("Install the gh-xpl skill for AI agents")
         .option("--global", "Install globally in ~/.agents/skills/")
         .action(installSkill);
+
+    program
+        .command("tui")
+        .description("Interactive TUI for exploring GitHub repositories")
+        .argument("[query]", "Initial search query")
+        .action(async (query?: string) => {
+            await runTui(query);
+        });
 
     return program;
 }
