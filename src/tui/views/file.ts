@@ -1,7 +1,7 @@
 import { ui } from "@rezi-ui/core";
 
-import type { TuiState } from "../state.js";
 import { CYAN, RED } from "../colors.js";
+import type { TuiState } from "../state.js";
 import { wrapLines } from "../utils.js";
 
 export function fileView(state: TuiState) {

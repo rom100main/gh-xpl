@@ -1,8 +1,8 @@
 import { ui } from "@rezi-ui/core";
 
 import type { SearchResult } from "../../types.js";
-import type { TuiState } from "../state.js";
 import { CYAN, YELLOW, RED } from "../colors.js";
+import type { TuiState } from "../state.js";
 
 function truncate(text: string | null, maxLen: number): string {
     if (!text) return "";
