@@ -1,16 +1,23 @@
+import { fromPath } from "@m234/nerd-fonts/fs";
 import { ui } from "@rezi-ui/core";
 import he from "he";
 
 import type { FileContent } from "../../types.js";
+import { CYAN, RED, BLUE } from "../colors.js";
 import type { TuiState } from "../state.js";
-import { CYAN, GREEN, RED, BLUE } from "../colors.js";
 import { wrapLines } from "../utils.js";
 
 function getFileIcon(file: FileContent): string {
     if (file.type === "dir") {
-        return "📁";
+        return "\ue5ff"; // nf-md-folder
     }
-    return "📄";
+
+    try {
+        const icon = fromPath(file.name, "seti");
+        return icon.value;
+    } catch {
+        return "\uf15b"; // nf-fa-file (default file)
+    }
 }
 
 export function repoView(state: TuiState, callbacks: RepoViewCallbacks) {
