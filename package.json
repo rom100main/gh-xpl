@@ -37,6 +37,7 @@
         "defuddle": "^0.15.0",
         "he": "^1.2.0",
         "linkedom": "^0.18.12",
+        "marked": "^18.0.2",
         "node-html-markdown": "^2.0.0",
         "open": "^11.0.0"
     },
@@ -57,6 +58,7 @@
     "devDependencies": {
         "@types/he": "^1.2.3",
         "@types/jest": "^29.5.0",
+        "@types/marked": "^5.0.2",
         "@types/node": "^25.5.2",
         "@typescript-eslint/eslint-plugin": "^8.46.2",
         "@typescript-eslint/parser": "^8.46.2",
