@@ -1,6 +1,6 @@
 {
     "name": "gh-xpl",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "CLI and TUI tool for exploring GitHub repositories using the official GitHub API, includes a skill for AI agents.",
     "author": "rom100main",
     "keywords": [
