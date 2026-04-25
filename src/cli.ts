@@ -67,9 +67,11 @@ name: ${SKILL_NAME}
 description: Explore GitHub repositories. Use when the user asks to view code from GitHub, explore repositories, get file contents, or search for repositories.
 ---
 
-## Commands
+If not installed: \`npm install -g gh-xpl\`
 
-### Search Repositories
+# Usage
+
+## Search Repositories
 Search for repositories on GitHub:
 \`\`\`bash
 gh-xpl search "<query>"
@@ -79,7 +81,7 @@ Optional flags:
 - \`--count <n>\` - Number of results (default: 10)
 - \`--json\` - Output as JSON
 
-### Get Repository Info
+## Get Repository Info
 Display a repository's README:
 \`\`\`bash
 gh-xpl info <owner/repo>
@@ -87,7 +89,7 @@ gh-xpl info <owner/repo>
 gh-xpl info https://github.com/owner/repo
 \`\`\`
 
-### Get File/Directory Contents
+## Get File/Directory Contents
 Get contents of a file or list a directory:
 \`\`\`bash
 gh-xpl get <owner/repo> [path]
@@ -110,7 +112,7 @@ gh-xpl get facebook/react src
 gh-xpl get facebook/react src/index.ts
 \`\`\`
 
-### Authentication
+## Authentication
 Set up GitHub API token for higher rate limits:
 \`\`\`bash
 gh-xpl auth
